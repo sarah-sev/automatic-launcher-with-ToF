@@ -32,8 +32,6 @@ void setup() {
 
   tof_init();
 
-  delay(10);  
-
   delay(100);
 
    if(running) {

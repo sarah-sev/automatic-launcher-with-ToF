@@ -97,7 +97,7 @@ void unstep() {
 
 void step() {
   for (int i = 0; i <= n; i++) {
-    digitalWrite(DIR_PIN,HIGH);
+    digitalWrite(DIR_PIN,LOW);
     delayMicroseconds(5);
     digitalWrite(PUL_PIN,HIGH);
     delayMicroseconds(de1);

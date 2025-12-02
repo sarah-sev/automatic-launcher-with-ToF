@@ -12,7 +12,6 @@ Adafruit_VL53L1X vl53 = Adafruit_VL53L1X(XSHUT_PIN, IRQ_PIN);
 #define PUL_PIN 13
 
 // servo
-
 Servo myservo;
 
 bool running = true;
@@ -97,7 +96,7 @@ void unstep() {
 
 void step() {
   for (int i = 0; i <= n; i++) {
-    digitalWrite(DIR_PIN,HIGH);
+    digitalWrite(DIR_PIN,LOW);
     delayMicroseconds(5);
     digitalWrite(PUL_PIN,HIGH);
     delayMicroseconds(de1);

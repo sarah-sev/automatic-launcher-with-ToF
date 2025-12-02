@@ -48,11 +48,12 @@ void setup() {
         int l = sizeof(dists<distance) / sizeof(dists[0]);
         int step_count = steps[l];
 
-          for (int i = 0; i <= step_count; i++) {
-            delay(5+i);
-            step();
-            delay(40);
-  }
+        for (int i = 0; i <= step_count; i++) {
+          delay(5+i);
+          step();
+          delay(40);
+        }
+
         delay(5000);
         myservo.attach(4);
         trigger();
@@ -106,10 +107,10 @@ void step() {
 }
 
 int round10(int num){
-int len = log10(num);
-float div = pow(10, len);
-int rounded = ceil(num / div) * div;
-return rounded;
+  int len = log10(num);
+  float div = pow(10, len);
+  int rounded = ceil(num / div) * div;
+  return rounded;
 }
 
 void trigger() {

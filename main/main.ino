@@ -22,8 +22,8 @@ float de1 = 250;
 int n = 1; // n iterations of stepper drive signal
 
 // target distance and corresponding number of steps to take
-int dists[] = {760,770,780,790,800,810,820,830,840,850,860,870,880,890,900,910,920,930,940,950,960,970,980,990,1000,1010,1020,1030};
-int steps[] = {4,  5,  6,  7,  8,  12,  18,  20,  25,  25,  25,  25,  26,  29,  28,  28,  20,  20,  22,  25,  25,  25,  30,  30,  30,  40,  40,  40};
+int dists[] = {150,160,170,180,190,200,260,270,280,290,300,310,320,330,340,350,360,370,380,390, 400, 410, 420, 430, 440,450,460,470,480,490,500,510,520,530,540,550,560,570,580,600,610,620,630,640,650,660,670,680,690,700,710,720,730,740,750,760,770,780,790,800,810,820,830,840,850,860,870,880};
+int steps[] = {0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6,  9,  9,  9,  9,  9,  9, 12, 12, 12, 12, 12, 15, 15, 15, 15, 15, 18, 18, 18, 18, 18, 18, 21, 21, 21, 21, 21, 21, 24, 24, 24, 24,24, 24, 27, 27, 27, 27, 27, 30, 30, 30, 30, 30, 30};
 
 void setup() {
   
@@ -36,9 +36,22 @@ void setup() {
 
    if(running) {
       if (vl53.dataReady()) {
-        int16_t distance = vl53.distance();
-        Serial.print(distance);
+        int16_t distance1 = vl53.distance();
+        Serial.println(distance1);
+        delay(50);
+        int16_t distance2 = vl53.distance();
+        Serial.println(distance2);
+        delay(50);
+        int16_t distance3 = vl53.distance();
+        Serial.println(distance3);
+
+        int16_t distance_arr[] ={distance1,distance2,distance3};
         
+        int m = sizeof(distance_arr) / sizeof(distance_arr[0]);
+
+        int16_t distance=findMedian(distance_arr,m);
+        Serial.println(distance);
+      
         if (distance == -1) {
           Serial.print(F("Couldn't get distance: "));
           Serial.println(vl53.vl_status);   
@@ -111,6 +124,25 @@ int round10(int num){ // round to the nearest power of 10
   float div = pow(10, len);
   int rounded = ceil(num / div) * div;
   return rounded;
+}
+
+double findMedian(int arr[], int m)
+{
+
+    // first sort the array
+    int16_t sort(arr, arr + m);
+
+    // Check if the number is even or odd
+    if (m % 2 != 0) {
+        // If number of element is odd, return the middle
+        // element
+        return arr[m / 2];
+    }
+    else {
+        // If number of element is even, return the average
+        // of the two middle elements
+        return (arr[(m - 1) / 2] + arr[m / 2]) / 2.0;
+    }
 }
 
 void trigger() {
